@@ -1,0 +1,34 @@
+{
+  "name": "multiview",
+  "version": "1.0.0",
+  "description": "MultiView desktop dashboard — real browser per tile via Electron webview.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node_modules\\electron\\dist\\electron.exe .",
+    "build": "electron-packager . MultiView --platform=win32 --arch=x64 --out=dist --overwrite --ignore=node_modules/electron-builder --ignore=node_modules/@electron/packager --ignore=dist --ignore=assets",
+    "postbuild": "xcopy /E /I /Y assets dist\\MultiView-win32-x64\\config\\"
+  },
+  "build": {
+    "appId": "com.multiview.app",
+    "productName": "MultiView",
+    "files": [
+      "src/**",
+      "assets/**"
+    ],
+    "win": {
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "devDependencies": {
+    "@electron/packager": "^20.0.0",
+    "electron": "^31.0.0",
+    "electron-builder": "^25.1.8"
+  }
+}

@@ -1,0 +1,206 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  background: #1A1A2E;
+  font-family: system-ui, sans-serif;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── App title bar ── */
+#title-bar {
+  width: 100%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  background: transparent;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  order: -3;
+}
+
+/* ── Tab bar ── */
+#tab-bar {
+  width: 100%;
+  flex-shrink: 0;
+  align-items: stretch;
+  gap: 4px;
+  padding: 5px 8px;
+  background: rgba(0,0,0,0.35);
+  order: -2;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 7px 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(255,255,255,0.45);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tab-btn:hover  { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8); }
+.tab-btn.active { background: rgba(255,255,255,0.18); color: #fff; font-weight: 600; }
+
+/* ── Logo bar ── */
+#logo-bar {
+  width: 100%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  background: transparent;
+}
+
+/* Single soft plate behind all logos */
+#logo-plate {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 8px 28px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.09);
+  backdrop-filter: blur(8px);
+}
+
+#logo-plate img {
+  width: auto;
+  object-fit: contain;
+  opacity: 0.88;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.35));
+}
+
+/* ── Pages container ── */
+#pages-container {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  order: 0;
+}
+
+/* ── Dashboard grid ── */
+.page-grid {
+  display: grid;
+  position: absolute;
+  inset: 0;
+  gap: 6px;
+  padding: 6px;
+  opacity: 1;
+  transition: opacity 120ms ease;
+}
+.page-grid.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Individual tile ── */
+.tile {
+  position: relative;
+  background: #16213E;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.tile webview {
+  flex: 1;
+  width: 100%;
+  border: none;
+}
+
+/* ── Tile title bar ── */
+.tile-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.tile-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.tile-bar span {
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.tile-bar button {
+  pointer-events: all;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 14px;
+  width: 22px; height: 22px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.tile-bar button:hover { background: rgba(255,255,255,0.3); }
+
+/* ── Corner controls (reload all + app fullscreen) ── */
+#corner-controls {
+  position: fixed;
+  bottom: 14px;
+  right: 14px;
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  z-index: 1000;
+}
+
+#corner-controls button {
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+#corner-controls button:hover { background: rgba(255,255,255,0.3); }
+
+/* ── Fullscreen state (tile expands in place — webview never reloads) ── */
+.tile-bar .fs-close-btn { display: none; }
+
+.tile-bar.fs-active {
+  height: 36px;
+  pointer-events: all;
+  background: rgba(13, 27, 42, 0.92);
+}
+.tile-bar.fs-active .fs-close-btn { display: flex; }
+.tile-bar.fs-active button[title="Fullscreen"] { display: none; }
