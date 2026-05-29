@@ -15,7 +15,6 @@ A multi-page dashboard that displays multiple websites simultaneously in a confi
 ## Installation
 
 ```bash
-cd electron_impl
 npm install
 ```
 
